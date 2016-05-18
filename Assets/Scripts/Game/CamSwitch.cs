@@ -6,8 +6,7 @@ public class CamSwitch : MonoBehaviour {
 	Camera mainCam;
 	CamFollow mainCamFollow;
 
-	public Transform fpCamTarget, fpCamParent;
-	Vector3 cachedPosition;
+	public Transform fpCamTarget, fpCamParent, camTarget;
 
 	void Start()
 	{
@@ -17,14 +16,13 @@ public class CamSwitch : MonoBehaviour {
 
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Tab))
+		if(Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Joystick1Button0))
 			FPSwitch();
 	}
 
 	void FPSwitch()
 	{
 		if(mainCamFollow.enabled)	{
-			cachedPosition = mainCam.transform.position;
 			mainCamFollow.enabled = false;
 			mainCam.transform.position = fpCamTarget.position;
 			mainCam.transform.rotation = fpCamParent.rotation;
@@ -32,8 +30,9 @@ public class CamSwitch : MonoBehaviour {
 		}
 		else {
 			mainCam.transform.parent = null;
-			mainCam.transform.position = cachedPosition;
-			mainCamFollow.enabled = true;
+            mainCam.transform.position = camTarget.position;
+            mainCam.transform.rotation = camTarget.rotation;
+            mainCamFollow.enabled = true;
 		}
 	}
 
