@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
-using System.Threading;
+//using System.Threading;
 using System.Collections.Generic;
 
 public class MapGenerator : MonoBehaviour
@@ -68,30 +68,30 @@ public class MapGenerator : MonoBehaviour
 
     public void RequestMapData(Vector2 center, Action<MapData> callback)
     {
-        ThreadStart threadStart = delegate
-        {
+        //ThreadStart threadStart = delegate
+        //{
             MapDatathread(center, callback);
-        };
+        //};
 
-        new Thread(threadStart).Start();
+        //new Thread(threadStart).Start();
     }
 
     void MapDatathread(Vector2 center,  Action<MapData> callback)
     {
         MapData mapData = GenerateMapData(center);
 
-        lock(mapDataThreadInfoQueue)
-        {
+        //lock(mapDataThreadInfoQueue)
+        //{
             mapDataThreadInfoQueue.Enqueue(new MapThreadInfo<MapData>(callback, mapData));
-        }
+        //}
     }
 
     public void RequestMeshData(MapData mapData, int lod, Action<MeshData> callback)
     {
-        ThreadStart threadStart = delegate {
+        //ThreadStart threadStart = delegate {
             MeshDataThread(mapData, lod, callback);
-        };
-        new Thread(threadStart).Start();
+        //};
+        //new Thread(threadStart).Start();
     }
 
 
@@ -99,10 +99,10 @@ public class MapGenerator : MonoBehaviour
     {
         MeshData meshData = MeshGenerator.GenerateTerrainMesh(mapData.heightMap, meshHeightMultiplier, meshHeightCurve, lod);
 
-        lock(meshDataThreadInfoQueue)
-        {
+        //lock(meshDataThreadInfoQueue)
+        //{
             meshDataThreadInfoQueue.Enqueue(new MapThreadInfo<MeshData>(callback, meshData));
-        }
+        //}
     }
 
     void Update()
