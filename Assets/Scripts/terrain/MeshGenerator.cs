@@ -71,6 +71,7 @@ public class MeshData
         mesh.triangles = triangles;
         mesh.uv = uvs;
         mesh.RecalculateNormals();
+        
         return mesh;
     }
 

@@ -86,7 +86,12 @@ public class EndlessTerrain : MonoBehaviour
         MeshRenderer meshRenderer;
         MeshFilter meshFilter;
 
-        LODInfo[] detailLevels;
+        //EXPERIMENTAL
+        Collider meshCollider;
+        //EXPERIMENTAL
+
+
+    LODInfo[] detailLevels;
         LODMesh[] lodMeshes;
 
         MapData mapData;
@@ -135,6 +140,7 @@ public class EndlessTerrain : MonoBehaviour
  
         public void UpdateTerrainChunk()
         {
+
             if (mapDataRecieved)
             {
                 float viewerDstFromNearestEdge = Mathf.Sqrt(bounds.SqrDistance(viewerPosition));
@@ -163,6 +169,20 @@ public class EndlessTerrain : MonoBehaviour
                         {
                             previousLODIndex = lodIndex;
                             meshFilter.mesh = lodMesh.mesh;
+
+                            
+                            //EXPERIMENTAL
+                            if (meshObject.GetComponent<MeshCollider>() == null)
+                            {
+                                meshCollider = meshObject.AddComponent<MeshCollider>();
+                                //print("Collider Created");
+                            }
+                            else
+                            {
+                                //print("Nothing Done");
+                            }
+                            //EXPERIMENTAL
+
                         }
                         else if (!lodMesh.hasRequestedMesh)
                         {
