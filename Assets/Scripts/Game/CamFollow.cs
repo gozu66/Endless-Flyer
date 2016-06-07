@@ -16,12 +16,14 @@ public class CamFollow : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		this.transform.LookAt(LookPoint.position, Vector3.up);
-		myT.position = Vector3.SmoothDamp(transform.position, movePoint.position, ref refV3, dampTime);
-
+        if (LookPoint != null)
+        {
+            this.transform.LookAt(LookPoint.position, Vector3.up);
+            myT.position = Vector3.SmoothDamp(transform.position, movePoint.position, ref refV3, dampTime);
+        }
 		if(Input.GetKeyDown(KeyCode.R))
 			SceneManager.LoadScene(0);
-
+        
 		if(Input.GetKeyDown(KeyCode.Escape))
 			Application.Quit();
 	}

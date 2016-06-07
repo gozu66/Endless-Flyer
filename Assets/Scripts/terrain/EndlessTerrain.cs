@@ -38,14 +38,16 @@ public class EndlessTerrain : MonoBehaviour
 
     void Update()
     {
-        viewerPosition = new Vector2(viewer.position.x, viewer.position.z) / scale;
-
-        if((viewerPositionOld - viewerPosition).sqrMagnitude > sqrViewerMoveThresholdForChinkUpdate)
+        if (viewer != null)
         {
-            viewerPositionOld = viewerPosition;
-            UpdateVisibleChunks();
-        }
+            viewerPosition = new Vector2(viewer.position.x, viewer.position.z) / scale;
 
+            if ((viewerPositionOld - viewerPosition).sqrMagnitude > sqrViewerMoveThresholdForChinkUpdate)
+            {
+                viewerPositionOld = viewerPosition;
+                UpdateVisibleChunks();
+            }
+        }
     }
 
     void UpdateVisibleChunks()
